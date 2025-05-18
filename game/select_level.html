@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เลือกด่าน SnakeShakeShake</title>
+
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #e0f7fa);
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+    .level-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .level-buttons button {
+      padding: 15px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 12px;
+      background:  #ff66b2;;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .level-buttons button:disabled {
+      background:  #ff66b2;;
+      cursor: not-allowed;
+    }
+    .level-buttons button:hover:not(:disabled) {
+      background:  #ff66b2;;
+    }
+    .score {
+      font-size: 1em;
+      margin-top: 5px;
+      color: #ccc;
+    }
+    .back-button {
+      background:  #ff66b2;;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background: #cfd66b;
+    }
+  </style>
+</head>
+<body>
+  <h1>เลือกด่าน SnakeShakeShake 🐍</h1>
+  <div class="level-buttons">
+    <div>
+      <button onclick="startLevel(1)">ด่านที่ 1: งูยุค 90s 🕹️</button>
+      <div class="score" id="score1"></div>
+    </div>
+    <div>
+      <button onclick="startLevel(2)" id="btn2" disabled>ด่านที่ 2: งูไร้กฎ 🌀</button>
+      <div class="score" id="score2"></div>
+    </div>
+    <div>
+      <button onclick="startLevel(3)" id="btn3" disabled>ด่านที่ 3:🐍 งูอวกาศ VS เอเลี่ยนบ้า 🛸</button>
+      <div class="score" id="score3"></div>
+    </div>
+  </div>
+
+  <button class="back-button" onclick="window.location.href='/SnakeShakeShake/pages/dashboard.php'">หน้าหลัก</button>
+
+
+  <script>
+    const scores = JSON.parse(localStorage.getItem('snakeScores')) || {
+      level1: 0,
+      level2: 0,
+      level3: 0
+    };
+
+    document.getElementById("score1").textContent = `คะแนน: ${scores.level1}`;
+    document.getElementById("score2").textContent = `คะแนน: ${scores.level2}`;
+    document.getElementById("score3").textContent = `คะแนน: ${scores.level3}`;
+
+    if (scores.level1 >= 100) document.getElementById("btn2").disabled = false;
+    if (scores.level2 >= 100) document.getElementById("btn3").disabled = false;
+
+    function startLevel(level) {
+      window.location.href = `level${level}.html`;
+    }
+  </script>
+  
+</body>
+</html>
